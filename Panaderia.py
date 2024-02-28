@@ -43,27 +43,20 @@ op1 = int(input("\n Ingresa la categoria a la que desea acceder: "))
 
 if op1 == 0:
     print("Haz seleccionado: Panes Salados")
-    for indice, producto in enumerate(panaderia["panesSalados"]["productos"]):
-        name = producto["nombre"]
-        value = producto["valor"]
-        print(f"""{indice} {name}, valor: {value}""")
     op1 = "panesSalados"
 elif op1 == 1:
     print("Haz seleccionado: Panes Dulces")
-    for indice, producto in enumerate(panaderia["panesDulces"]["productos"]):
-        name = producto["nombre"]
-        value = producto["valor"]
-        print(f"""{indice} {name}, valor: {value}""")
     op1 = "panesDulces"    
 elif op1 == 2:
     print("Haz seleccionado: Postres")
-    for indice, producto in enumerate(panaderia["postres"]["productos"]):
-        name = producto["nombre"]
-        value = producto["valor"]
-        print(f"""{indice} {name}, valor: {value}""")
     op1 = "postres"
 else:
     print("Este producto no existe")
+    
+for indice, producto in enumerate(panaderia[op1]["productos"]):
+    name = producto["nombre"]
+    value = producto["valor"]
+    print(f"""{indice} {name}, valor: {value}""")
 
 
 op2 = int(input("\n Ingresa el numero del producto a comprar: "))
@@ -89,7 +82,9 @@ if selectedProductName == "Galletas decoradas":
 
         else:
             falta = monto - money
-            print(f"""El dinero no es suficiente, te hace falta: {falta}""")
+            print(f"""El dinero no es suficiente, te hace falta: {falta}""")    
+    else:
+        print(f"""Bien, total a pagar: {selectedProduct["valor"]}""")
             
 elif selectedProductName == "Bollos de pizza":
     print("¡ Este producto tiene promocion !: Compre 3 en 9000")
@@ -106,20 +101,21 @@ elif selectedProductName == "Bollos de pizza":
         else:
             falta = monto - money
             print(f"""El dinero no es suficiente, te hace falta: {falta}""")
+    else:
+        print(f"""Bien, total a pagar: {selectedProduct["valor"]}""")
 
             
 
 
+else:
+    monto = selectedProduct["valor"]
+    money = int(input("\n Ingrese su pago: "))
+
+    if money >= monto:
+        cambio = money - monto
+        print(f"""Tu cambio es de: {cambio}""")
+        print("\n¡Gracias por tu compra!")
+
     else:
-        print(f"""Bien, total a pagar: {selectedProduct["valor"]}""")
-        monto = selectedProduct["valor"]
-        money = int(input("\n Ingrese su pago: "))
-
-        if money >= monto:
-            cambio = money - monto
-            print(f"""Tu cambio es de: {cambio}""")
-            print("\n¡Gracias por tu compra!")
-
-        else:
-            falta = monto - money
-            print(f"""El dinero no es suficiente, te hace falta: {falta}""")
+        falta = monto - money
+        print(f"""El dinero no es suficiente, te hace falta: {falta}""")
