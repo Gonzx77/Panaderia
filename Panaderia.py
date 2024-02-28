@@ -75,13 +75,32 @@ selectedProductValue = selectedProduct["valor"]
 compra = (f"""Haz seleccionado el producto {selectedProductName}, con un valor de: {selectedProductValue}""")
 print(compra)
 
-monto = selectedProduct["valor"]
-money = int(input("\n Ingrese su pago: "))
+if selectedProductName == "Galletas decoradas":
+    print("¡ Este producto tiene promocion !: Compre 3 en 8000")
+    op3 = input("Desea comprar la oferta?: ")
+    if op3.lower() == "si":
+        print("Perfecto, total a pagar: 8000")
+        monto = 8000
+        money = int(input("\n Ingrese su pago: "))
+        if money >= monto:
+            cambio = money - monto
+            print(f"""Tu cambio es de: {cambio}""")
+            print("\n¡Gracias por tu compra!")
 
-if money >= monto:
-    cambio = money - monto
-    print(f"""Tu cambio es de: {cambio}""")
+        else:
+            falta = monto - money
+            print(f"""El dinero no es suficiente, te hace falta: {falta}""")
 
-else:
-    falta = monto - money
-    print(f"""El dinero no es suficiente, te hace falta: {falta}""")
+    else:
+        print(f"""Bien, total a pagar: {selectedProduct["valor"]}""")
+        monto = selectedProduct["valor"]
+        money = int(input("\n Ingrese su pago: "))
+
+        if money >= monto:
+            cambio = money - monto
+            print(f"""Tu cambio es de: {cambio}""")
+
+        else:
+            falta = monto - money
+            print(f"""El dinero no es suficiente, te hace falta: {falta}""")
+            print("\n¡Gracias por tu compra!")
