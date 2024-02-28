@@ -90,6 +90,25 @@ if selectedProductName == "Galletas decoradas":
         else:
             falta = monto - money
             print(f"""El dinero no es suficiente, te hace falta: {falta}""")
+            
+elif selectedProductName == "Bollos de pizza":
+    print("¡ Este producto tiene promocion !: Compre 3 en 9000")
+    op3 = input("Desea comprar la oferta?: ")
+    if op3.lower() == "si":
+        print("Perfecto, total a pagar: 9000")
+        monto = 9000
+        money = int(input("\n Ingrese su pago: "))
+        if money >= monto:
+            cambio = money - monto
+            print(f"""Tu cambio es de: {cambio}""")
+            print("\n¡Gracias por tu compra!")
+
+        else:
+            falta = monto - money
+            print(f"""El dinero no es suficiente, te hace falta: {falta}""")
+
+            
+
 
     else:
         print(f"""Bien, total a pagar: {selectedProduct["valor"]}""")
@@ -99,8 +118,8 @@ if selectedProductName == "Galletas decoradas":
         if money >= monto:
             cambio = money - monto
             print(f"""Tu cambio es de: {cambio}""")
+            print("\n¡Gracias por tu compra!")
 
         else:
             falta = monto - money
             print(f"""El dinero no es suficiente, te hace falta: {falta}""")
-            print("\n¡Gracias por tu compra!")
