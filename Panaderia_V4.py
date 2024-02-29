@@ -34,7 +34,10 @@ panaderia = {
         {"nombre":"Donas","valor":3000}])},
     'promociones': {"descuentos":list([
         {"nombre":"Donas","valor":0.15},
-        {"nombre":"Pan de banana","valor":0.15}])}
+        {"nombre":"Pan de banana","valor":0.15},
+        {"nombre":"Galletas decoradas","valor":0.15},
+        {"nombre":"Pan de molde","valor":0.15},
+        {"nombre":"Pan de cebolla","valor":0.15}])}
 }
 
 print(f"""
