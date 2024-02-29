@@ -15,7 +15,7 @@ panaderia = {
         {"nombre":"Rosca de Reyes","valor":3000},
         {"nombre":"Pan de muerto","valor":3000},
         {"nombre":"Pan de canela","valor":3000},
-        {"nombre":"Pan de banana","valor":3000},
+        {"nombre":"Pan de banana","valor":6000},
         {"nombre":"Pan de zanahoria","valor":3000},
         {"nombre":"Donas","valor":3000},
         {"nombre":"Pan de jengibre","valor":3000},
@@ -71,14 +71,20 @@ selectedProductValue = selectedProduct["valor"]
 compra = (f"""Haz seleccionado el producto {selectedProductName}, con un valor de: {selectedProductValue}""")
 print(compra)
 
-descuentos = [descuento["nombre"] for descuento in panaderia['promociones']['descuentos']]
+descuentosName = [descuento["nombre"] for descuento in panaderia["promociones"]["descuentos"]]
+descuentoValue = None
+for descuento in panaderia["promociones"]["descuentos"]:
+    if descuento["nombre"] == selectedProductName:
+        descuentoValue = descuento["valor"]
+        break
 
-if selectedProductName in descuentos:
-    print("¡ Este producto tiene promocion !: Compre 3 en 8000")
+if selectedProductName in descuentosName:
+    print(f"""¡ Este producto tiene promocion !: Compre 3 con un 15% de descuento al total de la compra""")
     op3 = input("Desea comprar la oferta?: ")
     if op3.lower() == "si":
-        print("Perfecto, total a pagar: 8000")
-        monto = 8000
+        total1 = int(selectedProductValue * 3)
+        monto  = int(total1 - (total1 * descuentoValue))
+        print(f"""Perfecto, total a pagar: {monto}""")
         money = int(input("\n Ingrese su pago: "))
         if money >= monto:
             cambio = money - monto
