@@ -1,3 +1,5 @@
+Username = input("Hola, bienvenido a nuestra panaderia, ingrese su nombre: ")
+
 panaderia = {
     'panesSalados': {"productos":list([
         {"nombre":"Baguette","valor":3000},
@@ -40,33 +42,37 @@ panaderia = {
         {"nombre":"Pan de cebolla","valor":0.15}])}
 }
 
-print(f"""
-0: Panes Salados
-1: Panes Dulces
-2: Postres""")
-
-op1 = int(input("\n Ingresa la categoria a la que desea acceder: "))
-
-if op1 == 0:
-    print("Haz seleccionado: Panes Salados")
-    op1 = "panesSalados"
-elif op1 == 1:
-    print("Haz seleccionado: Panes Dulces")
-    op1 = "panesDulces"    
-elif op1 == 2:
-    print("Haz seleccionado: Postres")
-    op1 = "postres"
-else:
-    print("Este producto no existe")
-    
-for indice, producto in enumerate(panaderia[op1]["productos"]):
-    name = producto["nombre"]
-    value = producto["valor"]
-    print(f"""{indice} {name}, valor: {value}""")
 op2 = 0
+montoTotal = 0
+factura = None
+facturaFinal = []
 
 
 while op2 == 0:
+    print(f"""
+    0: Panes Salados
+    1: Panes Dulces
+    2: Postres""")
+
+    op1 = int(input("\n Ingresa la categoria a la que desea acceder: "))
+
+    if op1 == 0:
+        print("Haz seleccionado: Panes Salados")
+        op1 = "panesSalados"
+    elif op1 == 1:
+        print("Haz seleccionado: Panes Dulces")
+        op1 = "panesDulces"    
+    elif op1 == 2:
+        print("Haz seleccionado: Postres")
+        op1 = "postres"
+    else:
+        print("Este producto no existe")
+
+    for indice, producto in enumerate(panaderia[op1]["productos"]):
+        name = producto["nombre"]
+        value = producto["valor"]
+        print(f"""{indice} {name}, valor: {value}""")
+
     op2 = int(input("\n Ingresa el numero del producto a comprar: "))
 
     selectedProduct = panaderia[op1]["productos"][op2]
@@ -87,60 +93,54 @@ while op2 == 0:
         print(f"""¡ Este producto tiene promocion !: Compre 3 con un 15% de descuento al total de la compra""")
         op3 = input("Desea comprar la oferta?: ")
         if op3.lower() == "si":
+            promo = "Si (-15% cada 3 unidades)"
+            cantidad = int(input("Cuantas promociones desea comprar?: "))
             total1 = int(selectedProductValue * 3)
             monto  = int(total1 - (total1 * descuentoValue))
-            print(f"""Perfecto, total a pagar: {monto}""")
-            money = int(input("\n Ingrese su pago: "))
-            if money >= monto:
-                cambio = money - monto
-                print(f"""Tu cambio es de: {cambio}""")
-                print("\n¡Gracias por tu compra!")
-
-            else:
-                falta = monto - money
-                print(f"""El dinero no es suficiente, te hace falta: {falta}""")  
+            print(f"""Sumado al la factura ({monto})""")
                 
         elif op3.lower() != "si":
-            
+            promo = "No"
             cantidad = int(input("Cuantos desea comprar?: "))
-            total2 = ((selectedProductValue) * cantidad)
-            print(f"""Bien, total a pagar: {total2}""") 
-                
-            monto = total2
-            money = int(input("\n Ingrese su pago: "))
+            total1 = ((selectedProductValue) * cantidad)
+            print(f"""Sumado al la factura ({total1})""")
+            monto = total1
+    else:
+        promo = "No"
+        cantidad = int(input("Cuantos desea comprar?: "))
+        total1 = ((selectedProductValue) * cantidad)
+        print(f"""Sumado al la factura ({total1})""")
+        monto = total1
+        
+    montoTotal += monto
+    
+    factura = (f"""Nombre:{selectedProductName}, ¿Promocion?:{promo}, Precio(Unidad):{selectedProductValue}, Cantidad:{cantidad}, Precio:{monto}""")
+    facturaFinal.append(factura)
+    
 
-            if money >= monto:
-                cambio = money - monto
+    op4 = input("Desea comprar otro producto?: ")
+    
+    if op4.lower() == "si":
+        op2 = 0
+        
+    else:
+        print(f""" FACTURA Nombre: {Username} \n""")
+        for item in facturaFinal:
+            print(f"""- {item}""")
+        print("\n")
+        
+        pago = 0
+        while pago == 0:
+            print(f"""El total de su compra es de: {montoTotal}""")
+            money = int(input("Ingrese su pago: "))
+            if money >= montoTotal:
+                cambio = money - montoTotal
                 print(f"""Tu cambio es de: {cambio}""")
                 print("\n¡Gracias por tu compra!")
+                pago = pago + 1
 
             else:
-                falta = monto - money
+                falta = montoTotal - money
                 print(f"""El dinero no es suficiente, te hace falta: {falta}""")
-                break
-    else:
-        cantidad = int(input("Cuantos desea comprar?: "))
-        total2 = ((selectedProductValue) * cantidad)
-        monto = total2
-        print(f"""{cantidad} de {selectedProductName} cuesta: {monto}""")
-        money = int(input("\n Ingrese su pago: "))
-
-        if money >= monto:
-            cambio = money - monto
-            print(f"""Tu cambio es de: {cambio}""")
-            print("\n¡Gracias por tu compra!")
-
-        else:
-            falta = monto - money
-            print(f"""El dinero no es suficiente, te hace falta: {falta}""")
-            break
-        
-op4 = int(input("Desea comprar otro producto?: "))
-print("""
-0 = Si
-1 = No""")
-
-if op4 == 0:
-    op2 = 0
-else:
-    op2 = 1
+                pago = 0
+            op2 = 1
